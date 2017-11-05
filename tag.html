@@ -1,0 +1,113 @@
+<app>
+  <div>
+    <h1>APP Tag</h1>
+    <button type="button" onclick={tag.toggleStateA}>Button A</button>
+    <input type="text" placeholder="Text B" value={tag.stateB} onchange={tag.updateStateB} ref="textB"> <!-- with ref with are using a reference to access the attribute-->
+
+    <div>
+      <textarea rows="4" placeholder="Textarea C" onkeyup={tag.updateStateC}></textarea>
+    </div>
+   </div>
+
+   <div>
+     <label>
+       English
+       <input type="radio" name="language" value="eng" onclick={tag.updateStateD} checked>
+     </label>
+     <label>
+       Spanish
+       <input type="radio" name="language" value="spn" onclick={tag.updateStateD}>
+     </label>
+     <label>
+       Japanese
+       <input type="radio" name="language" value="jpn" onclick={tag.updateStateD}>
+     </label>
+   </div>
+
+   <div>
+     <select onchange={tag.updateStateE}>
+       <option value="">???</option>
+       <option value="car">car</option>
+       <option value="bicycle">bicycle</option>
+     </select>
+   </div>
+
+   <div>
+     <label>
+       Alpaca
+       <input type="checkbox" value="alpaca" onclick={tag.updateStateAnimal}>
+     </label>
+     <label>
+       Cat
+       <input type="checkbox" value="cat" onclick={tag.updateStateAnimal}>
+     </label>
+     <label>
+       Parrot
+       <input type="checkbox" value="parrot" onclick={tag.updateStateAnimal}>
+     </label>
+   </div>
+
+  <pre> <!-- pre formatted html tag -->
+    This is a preformatted piece of text
+    this.stateA = {tag.stateA ? "truthy" : "falsy"}; <!-- displays truthy or falsy depending on the boolean value.-->
+    this.stateB = {tag.stateB};
+    this.stateC = {tag.stateC || "no text"}; <!-- defining a default value to "no text"-->
+    this.stateD = {tag.stateD.toUpperCase()};
+    this.stateE = {tag.stateE};
+    this.stateF = alpaca -> {tag.stateAnimal.alpaca ? 'yes' : 'no'}
+                 cat    -> {tag.stateAnimal.cat ? 'yes' : 'no'}
+                 parrot -> {tag.stateAnimal.parrot ? 'yes' : 'no'}
+  </pre>
+
+  <style>
+  :scope {
+    font-family: Helvetica;
+  }
+  pre {
+    border: 1px solid #333;
+    padding: 7px 5px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
+  </style>
+
+  <script>
+  tag = this;
+  tag.stateA = false;
+  tag.stateB = "default text";
+  tag.stateC = "";
+  tag.stateD = "eng";
+  tag.stateE = "not selected";
+  tag.stateAnimal = { //created an object and given false value
+    alpaca : false,
+    cat    : false,
+    parrot : false
+  };
+
+  tag.toggleStateA = function(e){ //the toggle element changes from false to true and vice versa every time button is clicked
+    tag.stateA = !tag.stateA;
+  }
+  tag.updateStateB = function(e){
+    tag.stateB = tag.refs.textB.value; //access the input value through the refs property previously defined
+    // tag.stateA = e.target.value; --> If we want to use the event property to access the input value
+  }
+  tag.updateStateC = function(e){
+    tag.stateC = e.target.value;
+  }
+
+  tag.updateStateD = function(e){
+    tag.stateD = e.target.value;
+  }
+
+  tag.updateStateE = function(e){
+    tag.stateE = e.target.value;
+  }
+
+  tag.updateStateAnimal = function(e){
+    var animalType = e.target.value;
+    var stateChecked = e.target.checked;
+    tag.stateAnimal[animalType] = stateChecked;
+  }
+
+  </script>
+</app>
